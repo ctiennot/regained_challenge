@@ -21,3 +21,26 @@ Random forest on face pixels (100*100) => 0.45
 Trained a CNN from scratch (reusing the tutorial from tensorflow deep mnist) on the extracted faces and reached about 0.50 score (about the same as with boosting) without much care about the learning rate.
 
 => next idea: push the CNN, fine tuning and/or get an embedding to put the features in the boosting along the meta features. 
+
+
+**samedi, 07. janvier 2017 12:32 **
+
+*Fait entre-temps:*
+
+So far I tried 2 approach on the faces: using Keras tutorial as a starter I fine tuned the last layers of the vgg16 but in each case I never managed to get scores higher that 0.45. Maybe I didn't train the network efficiently or the architecture is too big and/or there is a limit in the extracted faces themselves.
+
+I had to duplicate the black and white channel to 3 RGB channels to make the architecture work so this is perhaps not the best way also.
+
+
+**samedi, 07. janvier 2017 05:49 **
+
+*Aujourd'hui*
+
+I fitted a small convnet that uses both the faces (2 conv layers + 1 dense) but also the meta-features that are introduced at the end of the network with a parallel dense layer. The dense layers from both parts are merged and passed to a last dense layer.
+
+WIth the same data than before I reach about 0.50. UPDATE: using 9500 training examples and testing on 500 (before I used only 7k for training) I get up to 0.58.
+
+=> using more data leads to better results but I need to check what boosting can do with all the training data and also what the CNN with only the faces can achieve.
+
+UPDATE:: I checked on the CNN with faces only and got about 0.5 only. But the train/testing I used for the 0.58 were not randomized and by keeping randomly 500 for testing I get 0.55. Using Boosting on 9500 training data and 500 testing ones I get about 0.48. No improvement.
+

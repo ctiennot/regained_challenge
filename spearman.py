@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Adapted from the official scipy implementation available at
 https://github.com/scipy/scipy/blob/master/scipy/stats/stats.py

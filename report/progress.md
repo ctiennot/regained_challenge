@@ -44,3 +44,19 @@ WIth the same data than before I reach about 0.50. UPDATE: using 9500 training e
 
 UPDATE:: I checked on the CNN with faces only and got about 0.5 only. But the train/testing I used for the 0.58 were not randomized and by keeping randomly 500 for testing I get 0.55. Using Boosting on 9500 training data and 500 testing ones I get about 0.48. No improvement.
 
+
+**dimanche, 08. janvier 2017 02:23 **
+
+Reading the paper: 
+
+Lu, Xin, et al. "Rating Image Aesthetics Using Deep Learning." IEEE Transactions on Multimedia 17.11 (2015): 2021-2034.
+
+To handle different sizes of input images: center-crop, padding...
+
+![ Image resizing/cropping](img/image_cropping.png  "Image resizing/cropping")
+
+![Single column architecture](/home/clement/Documents/git/regained/report/img/single_col_archi.png  "Single column architecture")
+
+![Double column architecture](/home/clement/Documents/git/regained/report/img/double_col_archi.png  "Double column architecture")
+
+

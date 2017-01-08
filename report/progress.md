@@ -25,7 +25,7 @@ Trained a CNN from scratch (reusing the tutorial from tensorflow deep mnist) on 
 
 **samedi, 07. janvier 2017 12:32 **
 
-*Fait entre-temps:*
+*In between*
 
 So far I tried 2 approach on the faces: using Keras tutorial as a starter I fine tuned the last layers of the vgg16 but in each case I never managed to get scores higher that 0.45. Maybe I didn't train the network efficiently or the architecture is too big and/or there is a limit in the extracted faces themselves.
 
@@ -34,7 +34,7 @@ I had to duplicate the black and white channel to 3 RGB channels to make the arc
 
 **samedi, 07. janvier 2017 05:49 **
 
-*Aujourd'hui*
+*Today*
 
 I fitted a small convnet that uses both the faces (2 conv layers + 1 dense) but also the meta-features that are introduced at the end of the network with a parallel dense layer. The dense layers from both parts are merged and passed to a last dense layer.
 
@@ -57,6 +57,15 @@ To handle different sizes of input images: center-crop, padding...
 
 ![Single column architecture](/home/clement/Documents/git/regained/report/img/single_col_archi.png  "Single column architecture")
 
+
+
 ![Double column architecture](/home/clement/Documents/git/regained/report/img/double_col_archi.png  "Double column architecture")
 
 
+Also there's this interresting article: [understanding-aesthetics-deep-learning](https://devblogs.nvidia.com/parallelforall/understanding-aesthetics-deep-learning/) 
+
+I worked on pre-processing today, in the flavour of Lu, Xin, et al.: 
+	- extracted global views of image using **crop-centering** + **rescaling** to end up with **500x500x3** inputs =>13 000 items, totalling 441,4 MB
+	- extracted 10 randomly chose **200x200 local views** per image => 130 000 items, totalling 670,9 MB
+	
+ *ISSUE: a few picts are black and white and it's a shame to discard RGB for all others just because of them...*

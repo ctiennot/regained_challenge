@@ -78,3 +78,27 @@ I worked on pre-processing today, in the flavour of Lu, Xin, et al.:
  ![CNN on global views](/home/clement/Documents/git/regained/report/img/CNN_global_views.png  "CNN on global views")
  
  Trying to make the CNN work with color images...
+ 
+ Doesn't work well, on faces still better
+ 
+ ![CNN on faces (color)](/home/clement/Documents/git/regained/report/img/CNN_faces  "CNN on faces (color)")
+
+
+
+**MAJOR BREAKTHROUGH**: adding L2 regularization seems to make the CNN learns way faster and it also increases the test Spearman a bit (> 0.55 with the color faces only and still running!)
+
+```python
+mse = (
+    tf.reduce_mean((final_output - y_tf)**2) + 0.1*(
+	tf.nn.l2_loss(conv1.W) +
+	tf.nn.l2_loss(conv2.W) +
+	tf.nn.l2_loss(conv3.W) +
+	tf.nn.l2_loss(fc1.W) +
+	tf.nn.l2_loss(fc2.W) 
+    )
+)
+```
+
+![CNN on faces with L2-reg](/home/clement/Documents/git/regained/report/img/CNN_faces_L2_reg.png  "CNN on faces with L2-reg")
+
+=> made a submission at 0.59

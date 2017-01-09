@@ -69,3 +69,12 @@ I worked on pre-processing today, in the flavour of Lu, Xin, et al.:
 	- extracted 10 randomly chose **200x200 local views** per image => 130 000 items, totalling 670,9 MB
 	
  *ISSUE: a few picts are black and white and it's a shame to discard RGB for all others just because of them...*
+ 
+ 
+ **lundi, 09. janvier 2017 07:10 **
+ 
+ Trained a CNN on the 200x200 global views (500x500 was too big).
+ 
+ ![CNN on global views](/home/clement/Documents/git/regained/report/img/CNN_global_views.png  "CNN on global views")
+ 
+ Trying to make the CNN work with color images...

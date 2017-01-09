@@ -112,7 +112,7 @@ if __name__ == '__ main__':
     pictures_train, pictures_test = load_files_names()
 
     if False:
-        export_all_global(resize=(200, 200))
+        export_all_global(resize=(100, 100))
 
     if False:
         export_all_local(patch_per_img=10, seed=1789)

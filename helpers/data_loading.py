@@ -96,10 +96,8 @@ def export_submission(scores_sub, name="submission"):
     submission.to_csv(name_sub, sep=";", index=False)
 
 
-def global_views_batch(
-        pict_indices,
-        dir="data/global_views/", verbose=False, black_white=True):
-    """ Load faces images (in black and white)
+def global_views_batch(pict_indices, dir="data/global_views/", verbose=False, black_white=True):
+    """ Load global views by batches
     :param pict_indices: list/array with indices of images to load in the batch
     :param dir: "data/extracted_faces/" by default
     :param black_white: if True converts RGB to black and white, if False then
@@ -152,12 +150,8 @@ def global_views_batch(
     return X, ids
 
 
-def local_views_batch(
-        pict_indices,
-        dir="data/local_views/", verbose=False, black_white=True,
-        seed = None
-    ):
-    """ Load faces images (in black and white)
+def local_views_batch(pict_indices, dir="data/local_views/", verbose=False, black_white=True, seed=None):
+    """ Load local views by batches
     :param pict_indices: list/array with indices of images to load in the batch
     it selects randomly 1 croped square among all those availables
     :param dir: "data/extracted_faces/" by default
@@ -240,3 +234,16 @@ def local_views_batch(
 
     ids = np.array(pict_indices)
     return X, ids
+
+
+def faces_batch(pict_indices, dir="data/extracted_faces/", verbose=False, black_white=True, seed=None):
+    """ Load faces by batches
+    :param pict_indices: list/array with indices of images to load in the batch
+    :param dir: "data/extracted_faces/" by default
+    :param black_white: if True converts RGB to black and white, if False then
+    for b&w images we replicate three times the grey channel.
+    :param verbose: display loading progression
+    :return: X, ids
+    """
+    return global_views_batch(
+        pict_indices, dir=dir, verbose=verbose, black_white=black_white)

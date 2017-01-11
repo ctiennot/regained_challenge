@@ -102,3 +102,15 @@ mse = (
 ![CNN on faces with L2-reg](/home/clement/Documents/git/regained/report/img/CNN_faces_L2_reg.png  "CNN on faces with L2-reg")
 
 => made a submission at 0.59
+
+
+**mercredi, 11. janvier 2017 09:11 **
+
+Boosting on the embeddings from the CNN => submission at 0.64
+
+
+**mercredi, 11. janvier 2017 09:28**
+
+Tried Stochastic Gredient Descent instead of Adagrad without success.
+
+Next step: data augmentation

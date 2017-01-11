@@ -96,13 +96,15 @@ def export_submission(scores_sub, name="submission"):
     submission.to_csv(name_sub, sep=";", index=False)
 
 
-def global_views_batch(pict_indices, dir="data/global_views/", verbose=False, black_white=True):
+def global_views_batch(pict_indices, dir="data/global_views/", verbose=False, black_white=True, rotate=0):
     """ Load global views by batches
     :param pict_indices: list/array with indices of images to load in the batch
     :param dir: "data/extracted_faces/" by default
     :param black_white: if True converts RGB to black and white, if False then
     for b&w images we replicate three times the grey channel.
     :param verbose: display loading progression
+    :param rotate: if != 0 apply random rotation in -rotate to rotate degrees,
+    must not exceed 45
     :return: X, ids
     """
     all_img = {int(number[::-1][4:][::-1]): dir + number
@@ -123,6 +125,17 @@ def global_views_batch(pict_indices, dir="data/global_views/", verbose=False, bl
             print "{}/{} global views loaded".format(i+1, len(pict_indices))
         # get image
         im = Image.open(all_img[index])
+        # if necessary apply a rotation
+        if rotate != 0:
+            if w != h:
+                raise UserWarning("rotate option does not handle non "
+                                  "squared images")
+            angle = np.random.randint(-rotate, rotate)
+            im = im.rotate(angle)
+            # crop to avoid black pixels
+            to_cut = int((w / 2.) * np.tan(2 * np.pi / 360 * abs(angle)) + 1)
+            im = im.crop(
+                box=(to_cut, to_cut, w - to_cut, w - to_cut)).resize((w, w))
         # first case: we want to keep colors
         if not black_white:
             im = np.array(im).astype(np.float32)
@@ -236,14 +249,16 @@ def local_views_batch(pict_indices, dir="data/local_views/", verbose=False, blac
     return X, ids
 
 
-def faces_batch(pict_indices, dir="data/extracted_faces/", verbose=False, black_white=True, seed=None):
+def faces_batch(pict_indices, dir="data/extracted_faces/", verbose=False, black_white=True, seed=None, rotate=False):
     """ Load faces by batches
     :param pict_indices: list/array with indices of images to load in the batch
     :param dir: "data/extracted_faces/" by default
     :param black_white: if True converts RGB to black and white, if False then
     for b&w images we replicate three times the grey channel.
     :param verbose: display loading progression
+    :param rotate: if != 0 apply random rotation in -rotate to rotate degrees,
+    must not exceed 45
     :return: X, ids
     """
     return global_views_batch(
-        pict_indices, dir=dir, verbose=verbose, black_white=black_white)
+        pict_indices, dir=dir, verbose=verbose, black_white=black_white, rotate=rotate)

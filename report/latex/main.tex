@@ -1,0 +1,62 @@
+\documentclass[a4paper,11pt]{article}
+%\usepackage[utf8]{inputenc}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{ragged2e}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[ansinew]{inputenc}
+%\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{mathtools}
+%\usepackage{lastpage}
+\usepackage{fancyhdr}
+%\usepackage{tablefootnote}
+\usepackage[hidelinks]{hyperref}
+%\usepackage[toc,page]{appendix}
+%\usepackage{algorithm}  
+%\usepackage{algorithmic} 
+\usepackage{setspace}
+\usepackage[
+    backend=biber,
+    style=authoryear-icomp,
+    sortlocale=de_DE,
+    natbib=true,
+    url=false, 
+    doi=true,
+    eprint=false
+]{biblatex}
+\addbibresource{biblio.bib}
+
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+%\title{Bibliography management: BibTeX}
+%\author{Share\LaTeX}
+
+\begin{document}
+
+\centering
+
+\noindent \Large{Portrait aesthetic scores prediction using deep learning}\\
+\medskip
+\noindent \small{Cl\'ement Tiennot - February 2017 \\ MVA Sparse wavelets and classification course}%\\ \today}
+\vspace{0.6cm}
+
+\justify
+\normalsize 
+\input{0_intro} 
+\input{1_challenge} 
+\input{2_first_models}
+\input{3_deep_learning}
+\input{4_going_further}
+\input{5_conclusion}
+
+%\bibliographystyle{plainnat}
+%\bibliography{biblio}
+
+\printbibliography
+
+%\input{appendix}
+\end{document}
+
+

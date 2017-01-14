@@ -1,0 +1,112 @@
+
+    \section{Challenge context}
+    
+    
+    \subsection{Pitch}
+    
+    The idea at Regaind is to automatize the process of sorting photos: what if we could just ask a machine to pick up the best photos to keep them or post them on Instagram? Hence the solution: using machine learning to label pictures and assign them aesthetic scores. In particular the challenge focuses on the task of predicting portrait scores which can be trickier than for more general pictures (e.g. an unwanted closed eye could ruin the whole portrait).
+    
+    \subsection{Task assessment}
+    
+    The challenge took the form of supervised learning problem: in total 13~000 portrait photos were provided among which 10~000 had been assigned aesthetic scores between 0 and 24 (averaged over 6 ``markers'' for each photo). Competitors were to submit their ``guessed'' scores for the 3~000 non-labeled portraits.
+    
+    Each submission was assessed using \textbf{Spearman's rank correlation coefficient} which assesses the strength of the statistical dependence between the ranking/ordering of two variables, in our case the predictions and the true labels. More formally, given the true labels $y_i$'s and the submitted predictions $\hat y_i$'s and the associated ranks $(\text{rg\ } y_i)$'s and $(\text{rg\ } \hat y_i)$'s then the Spearman's rank corre
+     coefficient is given by:
+     %
+     \begin{equation}
+	\rho = \frac{\text{cov\ }( \text{rg\ }Y, \text{rg\ } \hat Y)}{\sqrt{\text{Var\ } Y \text{Var\ } \hat Y}}
+     \end{equation}
+     %
+     where $\text{rg\ }Y$ and $\text{rg\ } \hat Y$ are the vectors with the $y_i$'s and the $\hat y_i$'s respectively. By looking at the correlation of the ranks and not the correlation of the two variables themselves Spearman's rho doesn't only capture linear relationships between the to variables. Obviously the higher $\rho$ the better the submission.
+     
+    
+    \subsection{Data}
+    
+    Images were provided in the \texttt{JPEG} format. They had different dimensions with various width/height ratios. In addition, a few images (?? out of ??) were in black and white. The average width and height were of ?? and ?? pixels.
+    
+    In addition to the raw images, Regaind provided some extra-features	in \texttt{.csv} files. All along the report we will refer to them as \textbf{meta-features} or \textbf{facial features} since they mainly describe the faces and expressions of people on the portraits. They mainly consists on attribute locations (e.g. position of the left of the right elbow in the image) or other information (e.g. age of the person). Most of the meta-features were predicted by the Regaind team models and haven't been verified by human beings. In addition some of them aren't provided for the 3~000 not-labeled images which makes them not directly usable for training algorithms.
+    
+    \begin{table}[h]
+    \center
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    Name & Modalities & Description & Present for... \\
+      \hline
+      Face detection score & $[0,\ 1]$ &  Face detection score & All \\
+      \hline
+      Location of the face & $(x, y)$ & abscissa then ordinate, origin at the top left of the photo, in pixels & All \\
+      \hline
+      Size of the face & $(w,\ h)$ & width then height, both values are normalized with the photo size and therefore are between 0 and 1 & All \\
+      \hline
+       - & $(x, y)$ & Landmarks of the face predicted automatically. They have not been verified and could be wrong (they are negative if outside the frame). We provide their abscissa (x) and ordinate (y) & All \\
+      \hline
+      left eye & $x$ & idem & All \\
+      left eye & $y$ & idem & All \\
+      right eye & $x$ & idem & All \\
+      right eye & $y$ & idem & All \\
+      left of left eyebrow& $x$ & idem & All \\
+      left of left eyebrow  & $y$ & idem & All \\
+      right of left eyebrow x & $x$ & idem & All \\
+      right of left eyebrow y  & $y$ & idem & All \\
+      left of right eyebrow x & $x$ & idem & All \\
+      left of right eyebrow y  & $y$ & idem & All \\
+      right of right eyebrow x & $x$ & idem & All \\
+      right of right eyebrow y  & $y$ & idem & All \\
+      midpoint between eyes x & $x$ & idem & All \\
+      midpoint between eyes y  & $y$ & idem & All \\
+      nose tip x & $x$ & idem & All \\
+      nose tip y & $y$ & idem & All \\
+      upper lip x & $x$ & idem & All \\
+      upper lip y  & $y$ & idem & All \\
+      lower lip x & $x$ & idem & All \\
+      lower lip y & $y$ & idem & All \\
+      mouth left x & $x$ & idem & All \\
+      mouth left y & $y$ & idem & All \\
+      mouth right x & $x$ & idem & All \\
+      mouth right y & $y$ & idem & All \\
+      mouth center x & $x$ & idem & All \\
+      mouth center y & $y$ & idem & All \\
+      nose bottom right x & $x$ & idem & All \\
+      nose bottom right y & $y$ & idem & All \\
+      nose bottom left x & $x$ & idem & All \\
+      nose bottom left y & $y$ & idem & All \\
+      nose bottom center x & $x$ & idem & All \\
+      nose bottom center y & $y$ & idem & All \\
+      left eye top boundary x & $x$ & idem & All \\
+      left eye top boundary y & $y$ & idem & All \\
+      left eye right corner x & $x$ & idem & All \\
+      left eye right corner y & $y$ & idem & All \\
+      left eye bottom boundary & $x$ & idem & All \\
+      left eye bottom boundary  & $y$ & idem & All \\
+      left eye left corner    & $x$ & idem & All \\
+      left eye left corner	& $y$ & idem & All \\
+      left eye pupil          & $x$ & idem & All \\
+      left eye pupil            & $y$ & idem & All \\
+      right eye top boundary & $x$ & idem & All \\
+      right eye top boundary   & $y$ & idem & All \\
+      right eye right corner & $x$ & idem & All \\
+      right eye right corner  & $y$ & idem & All \\
+      right eye bottom boundary & $x$ & idem & All \\
+      right eye bottom boundary & $y$ & idem & All \\
+      right eye left corner    & $x$ & idem & All \\
+      right eye left corner    & $y$ & idem & All \\
+      right eye pupil          & $x$ & idem & All \\
+      right eye pupil          & $y$ & idem & All \\
+      left eyebrow upper midpoint & $x$ & idem & All \\
+      left eyebrow upper midpoint & $y$ & idem & All \\
+      right eyebrow upper midpoint & $x$ & idem & All \\
+      right eyebrow upper midpoint & $y$ & idem & All \\
+      left ear tragion            & $x$ & idem & All \\
+      left ear tragion             & $y$ & idem & All \\
+      right ear tragion    	 & $x$ & idem & All \\
+      right ear tragion            & $y$ & idem & All \\
+      forehead glabella         & $x$ & idem & All \\
+      forehead glabella            & $y$ & idem & All \\
+      chin gnathion x          & $x$ & idem & All \\
+      chin gnathion y             & $y$ & idem & All \\
+      chin left gonion x      & $x$ & idem & All \\
+      chin left gonion y         & $y$ & idem & All \\
+      chin right gonion x    & $x$ & idem & All \\
+      chin right gonion y       & $y$ & idem & All \\
+\end{tabular}
+\end{table}
